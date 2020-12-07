@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{3F40AEFB-793F-3A47-703D-82E9BAF0A3B5}</ProjectGuid>
+    <ProjectGuid>{D93B3E96-7457-D16F-2EC5-0E9C62353FFC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\ScanDirection.cs" />
     <Compile Include="Assets\Scripts\ScreenWrapModel.cs" />
     <Compile Include="Assets\Scripts\UiController.cs" />
+    <Compile Include="Assets\Scripts\WinPanel.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -603,37 +604,37 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.15f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.DeviceSimulator.Tests.Common">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.DeviceSimulator.Tests.Common.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.DeviceSimulator.Tests.Common.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.DeviceSimulator.Editor">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.DeviceSimulator.Editor.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.DeviceSimulator.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Work/projects/Wrap Scan/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

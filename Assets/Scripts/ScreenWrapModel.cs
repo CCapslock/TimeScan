@@ -330,12 +330,12 @@ public class ScreenWrapModel : MonoBehaviour
 			}
 			else if (Direction == ScanDirection.FromRightToLeft)
 			{
-				renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 2, renderTexture2.height, TextureFormat.RGBA32, true);
-				_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter), 0, renderTexture2.width / CombiningTimes + 2, renderTexture2.height);
+				renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 1, renderTexture2.height, TextureFormat.RGBA32, true);
+				_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture2.width / CombiningTimes + 1, renderTexture2.height);
 				if (_combiningCounter == 1)
 				{
-					renderResult = new Texture2D(renderTexture2.width / CombiningTimes, renderTexture2.height, TextureFormat.RGBA32, true);
-					_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter), 0, renderTexture2.width / CombiningTimes, renderTexture2.height);
+					renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 1, renderTexture2.height, TextureFormat.RGBA32, true);
+					_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture2.width / CombiningTimes + 1, renderTexture2.height);
 				}
 				_pivot.x = 1f;
 				_pivot.y = 0.5f;
@@ -348,7 +348,7 @@ public class ScreenWrapModel : MonoBehaviour
 			Renderers[_combineCurrentNum].sprite = tempSprite;
 			RenderTexture.ReleaseTemporary(renderTexture2);
 			ScreenShotCamera.targetTexture = null;
-			for (int i = 1; i <= _combineNum - 1; i++)
+			for (int i = 1; i <= _combineNum - 5; i++)
 			{
 				Renderers[i + _combineCurrentNum].sprite = null;
 			}

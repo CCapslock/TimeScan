@@ -6,6 +6,7 @@ public class QuestImageBehavior : MonoBehaviour
     public Canvas _canvas;
     public RectTransform ImageTransform;
     public Image QuestImage;
+    public Image BackgroundImage;
     public float StartScale;
     public float FinishScale;
     public float ScaleSpeed;
@@ -20,14 +21,16 @@ public class QuestImageBehavior : MonoBehaviour
     private Vector3 _scalingVector;
     private Vector3 _movingVector;
 
-    [SerializeField] private float _moveSpeedX;
-    [SerializeField] private float _moveSpeedY;
+    private float _moveSpeedX;
+    private float _moveSpeedY;
+    private float _alphaOutSpeed;
 
     private bool _imageInXPosition;
     private bool _imageInYPosition;
 
     private bool _needToMove;
     private bool _needToScale;
+    private bool _needToTurnAlphaOut;
     private bool _imageMoved;
     private bool _imageScaled;
 
@@ -45,6 +48,7 @@ public class QuestImageBehavior : MonoBehaviour
         float YDiference = ImageTransform.anchoredPosition.y * -1f - FinishYPosition * -1f;
         _moveSpeedY = MoveSpeed;
         _moveSpeedX = MoveSpeed * (XDiference / YDiference);
+        _alphaOutSpeed = ScaleSpeed / (StartScale - FinishScale);
     }
 
     public void SetImageIntoFinishPosition()
@@ -67,20 +71,25 @@ public class QuestImageBehavior : MonoBehaviour
         _needToScale = false;
         _needToMove = false;
         _imageScaled = false;
-        _imageMoved = false;
+        _imageMoved = false; 
+        _needToTurnAlphaOut = false;
 
-        _imageInXPosition = false;
+         _imageInXPosition = false;
         _imageInYPosition = false;
 
         ImageInFinishPosition = false;
+
+        Color ff = BackgroundImage.color;
+        ff.a = 1f;
+        BackgroundImage.color = ff;
     }
 
     private void StartTransformImage() 
     {
         ImageTransform.anchorMax = new Vector2(1, 1);
         ImageTransform.anchorMin = new Vector2(1, 1);
-        _needToMove = true;
-        _needToScale = true;
+        _needToScale = true; 
+        _needToTurnAlphaOut = true;
     }
 
     private void FixedUpdate()
@@ -100,6 +109,10 @@ public class QuestImageBehavior : MonoBehaviour
         if (_needToScale)
         {
             ScaleImage();
+        }
+        if (_needToTurnAlphaOut)
+        {
+            SetOfBackgroundImage();
         }
         if(_imageMoved && _imageScaled && !ImageInFinishPosition)
         {
@@ -154,6 +167,21 @@ public class QuestImageBehavior : MonoBehaviour
             _scalingVector.x = FinishScale;
             _scalingVector.y = FinishScale;
             ImageTransform.localScale = _scalingVector;
+            _needToMove = true;
+        }
+    }
+    private void SetOfBackgroundImage()
+    {
+        
+        if (BackgroundImage.color.a > 0)
+        {
+            Color ff = BackgroundImage.color;
+            ff.a -= _alphaOutSpeed;
+            BackgroundImage.color = ff;
+        }
+        else
+        {
+            _needToTurnAlphaOut = false;
         }
     }
     public void SetSprite(Sprite QuestSprite)

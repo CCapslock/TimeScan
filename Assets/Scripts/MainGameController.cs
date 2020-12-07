@@ -95,4 +95,9 @@ public class MainGameController : MonoBehaviour
 	{
 		Destroy(CurrentLVL);
 	}
+	public Sprite GetQuestSprite()
+	{
+		LvlSettings Settings = CurrentLVL.GetComponent<LvlSettings>();
+		return Settings.QuestImage;
+	}
 }

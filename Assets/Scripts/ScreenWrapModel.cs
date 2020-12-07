@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ScreenWrapModel : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class ScreenWrapModel : MonoBehaviour
 	private SpriteRenderer[] UpToDownRenderers;
 	private SpriteRenderer[] LeftToRightRenderers;
 	private SpriteRenderer[] RightToLeftRenderers;
+	private Sprite _completedScreenshot;
 	private GameObject Object;
 	private int ScreenNum = 0;
 	private bool ScreenshotIsMade = false;
@@ -37,12 +39,16 @@ public class ScreenWrapModel : MonoBehaviour
 	private float _lenghtOfScreenPart;
 	private float _startCheckingNum;
 	private float _checkingNum;
+
+	private float _widthOfSceenForComletedScreen = 4.156816f;
+
 	private int _combineNum;
 	private int _combineCurrentNum;
 	private bool _needToScan;
 	private bool _needToTakeScreenshot;
 	private bool _needToTakeCombiningScreenshot;
 	private bool _needToTakeQuestScreenshot;
+	private bool _needToTakeCompletedScreenshot;
 
 	private void Awake()
 	{
@@ -54,7 +60,7 @@ public class ScreenWrapModel : MonoBehaviour
 		float num = (ScreenShotCamera.transform.position.z * -1) * Mathf.Tan((ScreenShotCamera.fieldOfView / 2) * Mathf.Deg2Rad);//расчитывает длину от 0 до верхнего края экрана в юнитах
 		HeightOfGameScreen = num * 2;//длина игрового экрана в юнитах 
 		WidthOfGameScreen = (float)Screen.width / (float)Screen.height * HeightOfGameScreen;//ширина игрового экрана в юнитах
-		//Debug.Log("WidthOfGameScreen = " + WidthOfGameScreen);
+		Debug.Log("WidthOfGameScreen = " + WidthOfGameScreen);
 		//создает на сцене пустые спрайты использую префаб
 		UpToDownRenderers = new SpriteRenderer[AmountOfDividingIfHorizontal];
 		for (int i = 0; i < AmountOfDividingIfHorizontal; i++)
@@ -233,6 +239,7 @@ public class ScreenWrapModel : MonoBehaviour
 				{
 					Invoke("MakeQuestScreenshot", 0.5f);
 				}
+				TakeCompletedSceenshot();
 				ScreenshotIsMade = true;
 				_needToScan = false;
 				_uiController.ActivateWinPanel(DelayTimeBeforeUI);
@@ -248,6 +255,11 @@ public class ScreenWrapModel : MonoBehaviour
 	{
 		ScreenShotCamera.targetTexture = RenderTexture.GetTemporary((int)(WidthOfGameScreen * 100), (int)(HeightOfGameScreen * 100), 24);
 		_needToTakeCombiningScreenshot = true;
+	}
+	public void TakeCompletedSceenshot()
+	{
+		ScreenShotCamera.targetTexture = RenderTexture.GetTemporary((int)(_widthOfSceenForComletedScreen * 100), (int)(HeightOfGameScreen * 100), 24);
+		_needToTakeCompletedScreenshot = true;
 	}
 
 	//TODO убрать копипасту
@@ -372,5 +384,23 @@ public class ScreenWrapModel : MonoBehaviour
 			RenderTexture.ReleaseTemporary(renderTexture2);
 			ScreenShotCamera.targetTexture = null;
 		}
+
+		if(_needToTakeCompletedScreenshot)
+		{
+			_needToTakeCompletedScreenshot = false;
+			RenderTexture renderTexture2 = ScreenShotCamera.targetTexture;
+
+			Texture2D renderResult = new Texture2D(renderTexture2.width, renderTexture2.height, TextureFormat.RGBA32, true);
+			_rect = new Rect(0, 0, renderTexture2.width, renderTexture2.height);
+			renderResult.ReadPixels(_rect, 0, 0, true);
+			renderResult.Apply();
+
+			_completedScreenshot = Sprite.Create(renderResult, new Rect(0, 0, renderResult.width, renderResult.height), _pivot);
+			_completedScreenshot.texture.wrapMode = TextureWrapMode.Clamp;
+		}
+	}
+	public Sprite GetCompletedSceenshot()
+	{
+		return _completedScreenshot;
 	}
 }

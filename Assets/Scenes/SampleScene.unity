@@ -8676,7 +8676,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LvlPresets:
+  - {fileID: 4897549448460129183, guid: 67ad1698f68354f4098a6b62898e42c2, type: 3}
+  - {fileID: 4897549448460129183, guid: 8336bb156c9640b409d569cb78122ac4, type: 3}
+  - {fileID: 4897549448460129183, guid: 64cb3ac588571bc498b9827795c336b3, type: 3}
+  - {fileID: 4897549448460129183, guid: 1aad8e17a8a476b479276a57e7c0b970, type: 3}
+  - {fileID: 4897549448460129183, guid: 4f4c17568b22f164bba9ed8e9ed9133b, type: 3}
+  - {fileID: 4897549448460129183, guid: 5602ea77fc383ad40a39aa33557cd628, type: 3}
+  - {fileID: 4897549448460129183, guid: 566f6484cc44eaf408cfaeaf7600a70d, type: 3}
+  - {fileID: 4897549448460129183, guid: 18329d6072accb74fb520557c4222b21, type: 3}
+  - {fileID: 4897549448460129183, guid: ddd2a0ef651c23446ae835f77b278671, type: 3}
+  - {fileID: 4897549448460129183, guid: dd189dd850cbff54f8502ed8ca7ec6e7, type: 3}
+  - {fileID: 4897549448460129183, guid: bf0b1de52c7246e4eba9ad121cc26bd2, type: 3}
+  - {fileID: 4897549448460129183, guid: bf76d4ada2ed9ca438dac56e67db4902, type: 3}
+  - {fileID: 4897549448460129183, guid: 2bef8330512001743bce5a4b7b15d41e, type: 3}
+  - {fileID: 4897549448460129183, guid: fd9c3093ebb6ddf4b9b8b1add092bb03, type: 3}
+  - {fileID: 4897549448460129183, guid: b061a6fdfdbf6404ba167a0c8d862841, type: 3}
+  - {fileID: 4897549448460129183, guid: 7f39b252c4cae9c41ac9258713b4261a, type: 3}
+  - {fileID: 4897549448460129183, guid: 7a9626eedcb8d8b4baf2db7dab876518, type: 3}
+  - {fileID: 4897549448460129183, guid: 373d180da28dda747995d1d8221ba817, type: 3}
   - {fileID: 4897549448460129183, guid: 6c78cb625e819e74290c62bdfe7e5080, type: 3}
+  - {fileID: 4897549448460129183, guid: 6cbf2eb793cffe240be77e4e0aaf571e, type: 3}
 --- !u!114 &864970046
 MonoBehaviour:
   m_ObjectHideFlags: 0

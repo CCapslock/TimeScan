@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3fc66dce28874284eb6beaac024f8b7a
+guid: cc46b7cb9fa59574fa2b8c954a264b11
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -34,7 +34,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 2.5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -60,8 +60,8 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
-    normalImportMode: 0
+    normalSmoothAngle: 81
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
@@ -80,7 +80,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 2.5
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

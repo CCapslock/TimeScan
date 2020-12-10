@@ -241,10 +241,10 @@ public class ScreenWrapModel : MonoBehaviour
 					Invoke("MakeQuestScreenshot", 0.5f);
 				}
 				TakeCompletedSceenshot();
-				_gameController.CalculateLvl();
+				_gameController.SaveLvl();
 				ScreenshotIsMade = true;
 				_needToScan = false;
-				_uiController.ActivateWinPanel(DelayTimeBeforeUI);
+				_gameController.ActivateWinUi(DelayTimeBeforeUI);
 			}
 		}
 	}

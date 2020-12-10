@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MainGameController : MonoBehaviour
 {
 	public GameObject[] LvlPresets;
+	public GameObject[] BonusLvlPresets;
 
 	private GameObject CurrentLVL;
-	private LvlSettings[] _lvlSettings;
+	private LvlSettings[] _lvlSettingsForBasicLvls;
+	private LvlSettings[] _lvlSettingsForBonusLvls;
 
 	private QuestImageBehavior _image;
 	private ScreenWrapModel _screenWrapModel;
@@ -13,25 +16,40 @@ public class MainGameController : MonoBehaviour
 	private SaveController _saveController;
 	private int _lvlNum;
 	private bool _needToCheckForImage;
+	private bool _needToSaveLvl = true;
+	private bool _isBonusLvl;
 
 	private void Awake()
 	{
 		_screenWrapModel = FindObjectOfType<ScreenWrapModel>();
-		_uiController = FindObjectOfType<UiController>(); 
+		_uiController = FindObjectOfType<UiController>();
 		_saveController = FindObjectOfType<SaveController>();
-		 _image = FindObjectOfType<QuestImageBehavior>();
+		_image = FindObjectOfType<QuestImageBehavior>();
 
-		_lvlSettings = new LvlSettings[LvlPresets.Length];
-		for (int i = 0; i < _lvlSettings.Length; i++)
+		_lvlSettingsForBasicLvls = new LvlSettings[LvlPresets.Length];
+		for (int i = 0; i < _lvlSettingsForBasicLvls.Length; i++)
 		{
-			_lvlSettings[i] = LvlPresets[i].GetComponent<LvlSettings>();
+			_lvlSettingsForBasicLvls[i] = LvlPresets[i].GetComponent<LvlSettings>();
+		}
+		_lvlSettingsForBonusLvls = new LvlSettings[BonusLvlPresets.Length];
+		for (int i = 0; i < _lvlSettingsForBonusLvls.Length; i++)
+		{
+			_lvlSettingsForBonusLvls[i] = BonusLvlPresets[i].GetComponent<LvlSettings>();
 		}
 		_screenWrapModel.CreateRenderes();
 	}
 	private void Start()
 	{
-		_lvlNum = _saveController.GetLvlNum();
-		SpawnLvl(); 
+		_isBonusLvl = _saveController.IsNextLvlBonus();
+		if (_isBonusLvl)
+		{
+			_lvlNum = _saveController.GetBonusLvlNum();
+		}
+		else
+		{
+			_lvlNum = _saveController.GetNextLvlNum();
+		}
+		SpawnLvl();
 	}
 	private void FixedUpdate()
 	{
@@ -46,14 +64,25 @@ public class MainGameController : MonoBehaviour
 	}
 	public void SpawnLvl()
 	{
-		_screenWrapModel.PrepareScan(_lvlSettings[_lvlNum].Direction);
-		CurrentLVL = Instantiate(LvlPresets[_lvlNum], new Vector3(0, 0, 0), Quaternion.identity);
-		LvlSettings Settings = CurrentLVL.GetComponent<LvlSettings>();
-		_image.SetSprite(Settings.QuestImage);
-		_image.SetBackgroundColor(Settings.BackgroundColorForIntro);
-		_image.SetImageIntoDefaultPosition();
-		_image.SetImageIntoFinishPosition();
-		_needToCheckForImage = true;
+		if (_isBonusLvl)
+		{
+			_screenWrapModel.PrepareScan(_lvlSettingsForBonusLvls[_lvlNum].Direction);
+			CurrentLVL = Instantiate(BonusLvlPresets[_lvlNum], new Vector3(0, 0, 0), Quaternion.identity);
+			_image.TurnOffImage();
+			_uiController.ActivateBonusLvlUi();
+			Invoke("ActivateScan", _uiController.BonusDelayTime);
+		}
+		else
+		{
+			_screenWrapModel.PrepareScan(_lvlSettingsForBasicLvls[_lvlNum].Direction);
+			CurrentLVL = Instantiate(LvlPresets[_lvlNum], new Vector3(0, 0, 0), Quaternion.identity);
+			LvlSettings Settings = CurrentLVL.GetComponent<LvlSettings>();
+			_image.SetSprite(Settings.QuestImage);
+			_image.SetBackgroundColor(Settings.BackgroundColorForIntro);
+			_image.SetImageIntoDefaultPosition();
+			_image.SetImageIntoFinishPosition();
+			_needToCheckForImage = true;
+		}
 	}
 	private void ActivateScan()
 	{
@@ -62,19 +91,28 @@ public class MainGameController : MonoBehaviour
 		{
 			Settings.LvlAnimator.SetTrigger("StartAnimation");
 		}
-		_screenWrapModel.ActivateScaner(_lvlSettings[_lvlNum].LenghtOfAnimation);
-	}
-	public void CalculateLvl()
-	{
-		if (_lvlNum + 1 <= LvlPresets.Length - 1)
+		if (_isBonusLvl)
 		{
-			_saveController.IncreaseLvlNum();
-			_lvlNum = _saveController.GetLvlNum();
+			_screenWrapModel.ActivateScaner(_lvlSettingsForBonusLvls[_lvlNum].LenghtOfAnimation);
 		}
 		else
 		{
-			_saveController.ZeroizeLvlNum();
-			_lvlNum = _saveController.GetLvlNum();
+			_screenWrapModel.ActivateScaner(_lvlSettingsForBasicLvls[_lvlNum].LenghtOfAnimation);
+		}
+	}
+	public void SaveLvl()
+	{
+		if (_needToSaveLvl)
+		{
+			if (_isBonusLvl)
+			{
+				_saveController.SaveCurrentBonusLvl();
+			}
+			else
+			{
+				_saveController.SaveCurrentLvl();
+			}
+			_needToSaveLvl = false;
 		}
 	}
 	public void StartNextLVL()
@@ -82,6 +120,16 @@ public class MainGameController : MonoBehaviour
 		_screenWrapModel.CleanScene();
 		CleanScene();
 		_uiController.DisActivateWinPanel();
+		_isBonusLvl = _saveController.IsNextLvlBonus();
+		if (_isBonusLvl)
+		{
+			_lvlNum = _saveController.GetBonusLvlNum();
+		}
+		else
+		{
+			_lvlNum = _saveController.GetNextLvlNum();
+		}
+		_needToSaveLvl = true;
 		SpawnLvl();
 	}
 	public void RestartLVL()
@@ -89,18 +137,8 @@ public class MainGameController : MonoBehaviour
 		_screenWrapModel.CleanScene();
 		CleanScene();
 		_uiController.DisActivateWinPanel();
-		if (_lvlNum != 0)
-		{
-			_saveController.DecreaseLvlNum();
-			_lvlNum = _saveController.GetLvlNum();
-		}
-		else
-		{
-			_saveController.SetLvlNum(LvlPresets.Length - 1);
-			_lvlNum = _saveController.GetLvlNum();
-		}
+		_lvlNum = _saveController.GetCurrentLvlNum();
 		SpawnLvl();
-		//CurrentLVL = Instantiate(LvlPresets[_lvlNum], new Vector3(0, 0, 0), Quaternion.identity);
 	}
 	private void CleanScene()
 	{
@@ -110,5 +148,16 @@ public class MainGameController : MonoBehaviour
 	{
 		LvlSettings Settings = CurrentLVL.GetComponent<LvlSettings>();
 		return Settings.QuestImage;
+	}
+	public void ActivateWinUi(float Delay)
+	{
+		if (_isBonusLvl)
+		{
+			_uiController.ActivateBonusWinPanel(Delay);
+		}
+		else
+		{
+			_uiController.ActivateWinPanel(Delay);
+		}
 	}
 }

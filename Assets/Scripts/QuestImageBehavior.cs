@@ -55,8 +55,15 @@ public class QuestImageBehavior : MonoBehaviour
     {
         Invoke("StartTransformImage", DelayTime);
     }
+    public void TurnOffImage()
+    {
+        QuestImage.gameObject.SetActive(false);
+        BackgroundImage.gameObject.SetActive(false);
+    }
     public void SetImageIntoDefaultPosition() 
     {
+        QuestImage.gameObject.SetActive(true);
+        BackgroundImage.gameObject.SetActive(true);
         ImageTransform.anchorMax = new Vector2(1, 1);
         ImageTransform.anchorMin = new Vector2(1, 1);
 

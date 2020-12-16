@@ -99,7 +99,7 @@ public class UiController : MonoBehaviour
 	private void CountPercent()
 	{
 		_percentNum = 0;
-		int randomNum = Random.Range(75, 100);
+		int randomNum = 100;//Random.Range(75, 100);
 		for (int i = 0; i < randomNum; i++)
 		{
 			Invoke("AddPercent", i * 0.007f);

@@ -224,6 +224,14 @@ public class ScreenWrapModel : MonoBehaviour
 				CombineTextures();
 			}
 		}
+        if(Input.GetKeyDown(KeyCode.F))
+		{			
+			MakeScreenshot();
+        }
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			CombineTextures();
+		}
 	}
 	public void MakeScreenshot()
 	{
@@ -276,7 +284,7 @@ public class ScreenWrapModel : MonoBehaviour
 			if (Direction == ScanDirection.FromUpToDown)
 			{
 				Texture2D renderResult = new Texture2D(renderTexture.width, renderTexture.height / _amountOfDividing, TextureFormat.RGBA32, false);
-				_rect = new Rect(0, HeightOfGameScreen * 100 / _amountOfDividing * ScreenNum, renderTexture.width, renderTexture.height / _amountOfDividing);
+				_rect = new Rect(0, HeightOfGameScreen * 100 - HeightOfGameScreen * 100 / _amountOfDividing * (ScreenNum + 1 ), renderTexture.width, renderTexture.height / _amountOfDividing);
 				renderResult.ReadPixels(_rect, 0, 0, false);
 				renderResult.Apply();
 				Sprite tempSprite = Sprite.Create(renderResult, new Rect(0, 0, renderResult.width, renderResult.height), new Vector2(0.5f, 1));
@@ -325,31 +333,31 @@ public class ScreenWrapModel : MonoBehaviour
 		if (_needToTakeCombiningScreenshot)
 		{
 			_needToTakeCombiningScreenshot = false;
-			RenderTexture renderTexture2 = ScreenShotCamera.targetTexture;
+			RenderTexture renderTexture = ScreenShotCamera.targetTexture;
 			Texture2D renderResult = new Texture2D(0, 0, TextureFormat.RGBA32, true);
 
 			if (Direction == ScanDirection.FromUpToDown)
 			{
-				renderResult = new Texture2D(renderTexture2.width, renderTexture2.height / _amountOfDividing * _combineNum, TextureFormat.RGBA32, true);
-				_rect = new Rect(0, HeightOfGameScreen * 100 / _amountOfDividing * _combineCurrentNum, renderTexture2.width, renderTexture2.height / _amountOfDividing * _combineNum);
+				renderResult = new Texture2D(renderTexture.width, 150, TextureFormat.RGBA32, true);
+				_rect = new Rect(0, (HeightOfGameScreen * 100) - HeightOfGameScreen * 100 / _amountOfDividing * (_combineCurrentNum + _combineNum), renderTexture.width, renderTexture.height / _amountOfDividing * _combineNum);
 				_pivot.x = 0.5f;
 				_pivot.y = 1f;
 			}
 			else if (Direction == ScanDirection.FromLeftToRight)
 			{
-				renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 1, renderTexture2.height, TextureFormat.RGBA32, true);
-				_rect = new Rect(WidthOfGameScreen * 100f / _amountOfDividing * _combineCurrentNum, 0, renderTexture2.width / CombiningTimes + 1, renderTexture2.height);
+				renderResult = new Texture2D(renderTexture.width / CombiningTimes + 1, renderTexture.height, TextureFormat.RGBA32, true);
+				_rect = new Rect(WidthOfGameScreen * 100f / _amountOfDividing * _combineCurrentNum, 0, renderTexture.width / CombiningTimes + 1, renderTexture.height);
 				_pivot.x = 0f;
 				_pivot.y = 0.5f;
 			}
 			else if (Direction == ScanDirection.FromRightToLeft)
 			{
-				renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 1, renderTexture2.height, TextureFormat.RGBA32, true);
-				_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture2.width / CombiningTimes + 1, renderTexture2.height);
+				renderResult = new Texture2D(renderTexture.width / CombiningTimes + 1, renderTexture.height, TextureFormat.RGBA32, true);
+				_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture.width / CombiningTimes + 1, renderTexture.height);
 				if (_combiningCounter == 1)
 				{
-					renderResult = new Texture2D(renderTexture2.width / CombiningTimes + 1, renderTexture2.height, TextureFormat.RGBA32, true);
-					_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture2.width / CombiningTimes + 1, renderTexture2.height);
+					renderResult = new Texture2D(renderTexture.width / CombiningTimes + 1, renderTexture.height, TextureFormat.RGBA32, true);
+					_rect = new Rect(WidthOfGameScreen * 100f / CombiningTimes * (CombiningTimes - _combiningCounter) - 1, 0, renderTexture.width / CombiningTimes + 1, renderTexture.height);
 				}
 				_pivot.x = 1f;
 				_pivot.y = 0.5f;
@@ -360,7 +368,7 @@ public class ScreenWrapModel : MonoBehaviour
 			Sprite tempSprite = Sprite.Create(renderResult, new Rect(0, 0, renderResult.width, renderResult.height), _pivot);
 			tempSprite.texture.wrapMode = TextureWrapMode.Clamp;//убирает последние пиксели конца текстуры из начала текстуры
 			Renderers[_combineCurrentNum].sprite = tempSprite;
-			RenderTexture.ReleaseTemporary(renderTexture2);
+			RenderTexture.ReleaseTemporary(renderTexture);
 			ScreenShotCamera.targetTexture = null;
 			for (int i = 1; i <= _combineNum - 5; i++)
 			{

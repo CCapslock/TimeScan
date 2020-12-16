@@ -12,6 +12,7 @@ public class SaveController : MonoBehaviour
 	private string _bonusLvlsCounter = "BonusLvls";
 	private char[] _currentLvlBase;
 	private int _currentLvlNum;
+
 	private void Awake()
 	{
 		_gameController = FindObjectOfType<MainGameController>();
@@ -42,6 +43,7 @@ public class SaveController : MonoBehaviour
 		{
 			if (PlayerPrefs.GetInt(_roundForPlaying) != _gameController.LvlPresets.Length)
 			{
+				_currentLvlNum = PlayerPrefs.GetInt(_roundForPlaying);
 				return PlayerPrefs.GetInt(_roundForPlaying);
 			}
 			else
@@ -133,7 +135,7 @@ public class SaveController : MonoBehaviour
 	}
 	public int GetBonusLvlNum()
 	{
-		Debug.Log("BonusLvlNum = " + PlayerPrefs.GetInt(_bonusLvlsCounter));
+		_currentLvlNum = PlayerPrefs.GetInt(_bonusLvlsCounter);
 		return PlayerPrefs.GetInt(_bonusLvlsCounter);
 	}
 }

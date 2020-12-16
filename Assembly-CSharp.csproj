@@ -606,8 +606,14 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Recorder.Editor">
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Recorder.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder">
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Recorder.dll</HintPath>
     </Reference>
     <Reference Include="Unity.DeviceSimulator.Tests.Common">
       <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.DeviceSimulator.Tests.Common.dll</HintPath>
@@ -623,6 +629,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Recorder.Base">
+      <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.Recorder.Base.dll</HintPath>
     </Reference>
     <Reference Include="Unity.DeviceSimulator.Editor">
       <HintPath>D:/Work/Git Hub Repositories/TimeScan/Library/ScriptAssemblies/Unity.DeviceSimulator.Editor.dll</HintPath>
